@@ -4,7 +4,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\PrimeNumberController;
 use App\Http\Controllers\ResetPasswordController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
