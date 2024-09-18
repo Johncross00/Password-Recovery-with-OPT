@@ -70,35 +70,17 @@ class AuthController extends Controller
         }
     }
 
-    // public function forgotPassword(Request $request)
-    // {
-    //     $request->validate([
-    //         'email' => 'required|email',
-    //     ]);
+    public function logout(Request $request)
+    {
+        if (!$request->user()) {
+            return response()->json(['message' => 'You are not logged in'], 401);
+        }
 
-    //     $otp = (new Otp)->generate($request->email, 6, 60);
+        $request->user()->tokens()->delete();
 
-    //     // Envoyer l'OTP par e-mail (implémentez un service de mail)
-    //     Mail::to($request->email)->send(new \App\Mail\SendOtpMail($otp->token));
+        return response()->json(['message' => 'Logged out successfully']);
+    }
 
-    //     return response()->json(['message' => 'OTP sent to your email.']);
-    // }
-
-    // public function verifyOtp(Request $request)
-    // {
-    //     $request->validate([
-    //         'email' => 'required|email',
-    //         'otp' => 'required|numeric',
-    //     ]);
-
-    //     $otp = (new Otp)->validate($request->email, $request->otp);
-
-    //     if (!$otp->status) {
-    //         return response()->json(['message' => 'Invalid OTP'], 401);
-    //     }
-
-    //     return response()->json(['message' => 'OTP verified, proceed to reset your password.']);
-    // }
 
     public function findPrimeNumbers(Request $request)
     {
