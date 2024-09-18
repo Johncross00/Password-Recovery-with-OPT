@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Ichtrojan\Otp\Otp;
-use Illuminate\Support\Facades\Mail;
+
 
 class AuthController extends Controller
 {
@@ -79,34 +78,5 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
 
         return response()->json(['message' => 'Logged out successfully']);
-    }
-
-
-    public function findPrimeNumbers(Request $request)
-    {
-        $request->validate([
-            'number' => 'required|integer|min:2',
-        ]);
-
-        $n = $request->number;
-        $primes = [];
-
-        for ($i = 2; $i < $n; $i++) {
-            if ($this->isPrime($i)) {
-                $primes[] = $i;
-            }
-        }
-
-        return response()->json($primes);
-    }
-
-    private function isPrime($num)
-    {
-        for ($i = 2; $i <= sqrt($num); $i++) {
-            if ($num % $i === 0) {
-                return false;
-            }
-        }
-        return true;
     }
 }
